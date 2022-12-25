@@ -14,7 +14,19 @@ app.get('/', (req, res, next) => {
 })
 
 
-app.post('/users', (req, res, next) => {
+const check = async (req, res, next) => {
+	try {
+
+		const tok = req.headers?.authorization?.split(' ')[1];
+		if (tok) {
+			next();
+		} else res.status(401).json({ message: 'Not Authroized' });
+	} catch (err) {
+		res.status(401).json({ message: 'Not Authroized' });
+	}
+}
+
+app.post('/users', check, (req, res, next) => {
 	const users = req.body;
 	let mysql = 'INSERT INTO main.users (id,name,surname,dob,gender) VALUES ?'
 	try {
