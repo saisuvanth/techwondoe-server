@@ -19,7 +19,11 @@ const check = async (req, res, next) => {
 
 		const tok = req.headers?.authorization?.split(' ')[1];
 		if (tok) {
-			next();
+			if (tok === 'hehehoho') {
+				next();
+			} else {
+				res.status(401).json({ message: 'Not Authroized' });
+			}
 		} else res.status(401).json({ message: 'Not Authroized' });
 	} catch (err) {
 		res.status(401).json({ message: 'Not Authroized' });
