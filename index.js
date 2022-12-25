@@ -9,6 +9,10 @@ const app = express();
 app.use(express.json())
 app.use(cors());
 
+app.get('/', (req, res, next) => {
+	res.send('Hello');
+})
+
 
 app.post('/users', (req, res, next) => {
 	const users = req.body;
@@ -48,4 +52,4 @@ con.connect((err) => {
 		console.log(result);
 	});
 })
-app.listen(3002, () => console.log('listening'));
+app.listen(process.env.PORT, () => console.log(`listening to ${process.env.PORT}`));
